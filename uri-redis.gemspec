@@ -20,8 +20,9 @@
   LICENSE.txt
   README.rdoc
   Rakefile
-  hexoid.gemspec
-  lib/hexoid.rb
+  lib/uri/redis.rb
+  tryouts/essential_tryouts.rb
+  uri-redis.gemspec
   )
 
   
