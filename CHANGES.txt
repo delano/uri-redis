@@ -1,0 +1,5 @@
+URI-Redis, CHANGES
+
+#### 0.2.0 (2010-05-30) ###############################
+
+* Initial public release
