@@ -1,5 +1,11 @@
 URI-Redis, CHANGES
 
+#### 0.3.0 (2010-06-03) ###############################
+
+* CHANGE: Redis::Client.uri is now Redis.uri
+* ADDED: Support for redis-2.0.0
+
+
 #### 0.2.0 (2010-05-30) ###############################
 
 * Initial public release

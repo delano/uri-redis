@@ -47,13 +47,20 @@ module URI
   @@schemes['REDIS'] = Redis
 end
 
+
 class Redis
-  class Client
+  def self.uri(conf={})
+    URI.parse 'redis://%s:%s/%s' % [conf[:host], conf[:port], conf[:db]]
+  end
+  if defined?(Redis::VERSION) && Redis::VERSION >= "2.0.0"
     def uri
-      URI.parse 'redis://%s:%s/%s' % [@host, @port, @db]
+      URI.parse 'redis://%s:%s/%s' % [@client.host, @client.port, @client.db]
     end
-    def self.uri(conf={})
-      URI.parse 'redis://%s:%s/%s' % [conf[:host], conf[:port], conf[:db]]
+  else
+    class Client
+      def uri
+        URI.parse 'redis://%s:%s/%s' % [@host, @port, @db]
+      end
     end
   end
 end
