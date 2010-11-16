@@ -1,41 +1,45 @@
-require 'rake/clean'
-require 'rake/gempackagetask'
-require 'fileutils'
-include FileUtils
+require "rubygems"
+require "rake"
+require "rake/clean"
+require 'yaml'
 
 begin
   require 'hanna/rdoctask'
 rescue LoadError
   require 'rake/rdoctask'
 end
-
-
-task :default => :test
-
-
-# PACKAGE =============================================================
-
+ 
+config = YAML.load_file("VERSION.yml")
+task :default => ["build"]
+CLEAN.include [ 'pkg', 'doc' ]
 name = "uri-redis"
-load "#{name}.gemspec"
 
-version = @spec.version
-
-Rake::GemPackageTask.new(@spec) do |p|
-  p.need_tar = true if RUBY_PLATFORM !~ /mswin/
+begin
+  require "jeweler"
+  Jeweler::Tasks.new do |gem|
+    gem.version = "0.4.0"
+    gem.name = "uri-redis"
+    gem.rubyforge_project = gem.name
+    gem.summary = "URI-Redis: support for parsing redis://host:port/dbindex/keyname"
+    gem.description = gem.summary
+    gem.email = "delano@solutious.com"
+    gem.homepage = "http://github.com/delano/uri-redis"
+    gem.authors = ["Delano Mandelbaum"]
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
-task :release => [ "publish:gem", :clean, "publish:rdoc" ] do
-  $: << File.join(File.dirname(__FILE__), 'lib')
-  require "rudy"
-  abort if Drydock.debug?
-end
 
-task :install => [ :rdoc, :package ] do
-	sh %{sudo gem install pkg/#{name}-#{version}.gem}
-end
-
-task :uninstall => [ :clean ] do
-	sh %{sudo gem uninstall #{name}}
+Rake::RDocTask.new do |rdoc|
+  version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}.#{config[:BUILD]}"
+  rdoc.rdoc_dir = "doc"
+  rdoc.title = "redis-dump #{version}"
+  rdoc.rdoc_files.include("README*")
+  rdoc.rdoc_files.include("LICENSE.txt")
+  #rdoc.rdoc_files.include("bin/*.rb")
+  rdoc.rdoc_files.include("lib/**/*.rb")
 end
 
 
@@ -49,26 +53,10 @@ end
 #about 'Public release to rubyforge'
 task 'publish:gem' => [:package] do |t|
   sh <<-end
-    rubyforge add_release -o Any -a CHANGES.txt -f -n README.rdoc #{name} #{name} #{@spec.version} pkg/#{name}-#{@spec.version}.gem &&
-    rubyforge add_file -o Any -a CHANGES.txt -f -n README.rdoc #{name} #{name} #{@spec.version} pkg/#{name}-#{@spec.version}.tgz 
+    rubyforge add_release -o Any -a CHANGES.txt -f -n README.md #{name} #{name} #{@spec.version} pkg/#{name}-#{@spec.version}.gem &&
+    rubyforge add_file -o Any -a CHANGES.txt -f -n README.md #{name} #{name} #{@spec.version} pkg/#{name}-#{@spec.version}.tgz 
   end
 end
-
-
-Rake::RDocTask.new do |t|
-	t.rdoc_dir = 'doc'
-	t.title    = @spec.summary
-	t.options << '--line-numbers' <<  '-A cattr_accessor=object'
-	t.options << '--charset' << 'utf-8'
-	t.rdoc_files.include('LICENSE.txt')
-	t.rdoc_files.include('README.rdoc')
-	t.rdoc_files.include('CHANGES.txt')
-	#t.rdoc_files.include('Rudyfile')  # why is the formatting f'd?
-	t.rdoc_files.include('bin/*')
-	t.rdoc_files.include('lib/**/*.rb')
-end
-
-CLEAN.include [ 'pkg', '*.gem', '.config', 'doc', 'coverage*' ]
 
 
 
