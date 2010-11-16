@@ -17,7 +17,7 @@ name = "uri-redis"
 begin
   require "jeweler"
   Jeweler::Tasks.new do |gem|
-    gem.version = "0.4.0"
+    gem.version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}"
     gem.name = "uri-redis"
     gem.rubyforge_project = gem.name
     gem.summary = "URI-Redis: support for parsing redis://host:port/dbindex/keyname"
@@ -33,7 +33,7 @@ end
 
 
 Rake::RDocTask.new do |rdoc|
-  version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}.#{config[:BUILD]}"
+  version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}"
   rdoc.rdoc_dir = "doc"
   rdoc.title = "redis-dump #{version}"
   rdoc.rdoc_files.include("README*")
