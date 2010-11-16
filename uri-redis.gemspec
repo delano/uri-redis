@@ -1,7 +1,7 @@
 @spec = Gem::Specification.new do |s|
   s.name = "uri-redis"
   s.rubyforge_project = 'uri-redis'
-  s.version = "0.3.0"
+  s.version = "0.4.0"
   s.summary = "URI-Redis: support for parsing redis://host:port/dbindex"
   s.description = s.summary
   s.author = "Delano Mandelbaum"

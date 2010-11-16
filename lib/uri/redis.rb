@@ -3,6 +3,7 @@ require 'redis'
 
 module URI
   class Redis < URI::Generic
+    VERSION = '0.4' unless defined?(URI::Redis::VERSION)
     DEFAULT_PORT = 6379
     DEFAULT_DB = 0
     
@@ -19,13 +20,26 @@ module URI
       r = path_query
     end
     
+    def key
+      return if self.path.nil?
+      self.path ||= "/#{DEFAULT_DB}"
+      self.path.split('/')[2..-1].join('/')
+    end
+    
+    def key=(val)
+      self.path = '/' << [db, val].join('/')
+    end
+    
     def db
-      val = path.tr('/', '')
-      val.empty? ? DEFAULT_DB : val.to_i
+      self.path ||= "/#{DEFAULT_DB}"
+      (self.path.split('/')[1] || DEFAULT_DB).to_i
     end
     
     def db=(val)
+      current_key = key
       self.path = "/#{val}"
+      self.path << "/#{current_key}"
+      self.path
     end
     
     def conf

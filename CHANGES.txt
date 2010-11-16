@@ -1,5 +1,11 @@
 URI-Redis, CHANGES
 
+#### 0.4.0 (2010-11-15) ###############################
+
+* ADDED: Support for keys in the path
+* CHANGE: Updated tryouts to 2.0
+
+
 #### 0.3.0 (2010-06-03) ###############################
 
 * CHANGE: Redis::Client.uri is now Redis.uri
