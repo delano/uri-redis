@@ -23,7 +23,7 @@ module URI
     def key
       return if self.path.nil?
       self.path ||= "/#{DEFAULT_DB}"
-      self.path.split('/')[2..-1].join('/')
+      (self.path.split('/')[2..-1] || []).join('/')
     end
     
     def key=(val)
