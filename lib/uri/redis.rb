@@ -42,18 +42,50 @@ module URI
       self.path
     end
     
+    # Returns a hash suitable for sending to Redis.new. 
+    # The hash is generated from the host, port, db and
+    # password from the URI as well as any query vars.
+    # 
+    # e.g. 
+    #
+    #      uri = URI.parse "redis://127.0.0.1/6/?timeout=5"
+    #      uri.conf
+    #        # => {:db=>6, :timeout=>"5", :host=>"127.0.0.1", :port=>6379}
+    #
     def conf
-      tmp = {
+      hsh = {
         :host => host,
         :port => port,
         :db   => db
-      }
-      tmp[:password] = password if password
-      tmp
+      }.merge parse_query(query)
+      hsh[:password] = password if password
+      hsh
     end
     
     def serverid
       'redis://%s:%s/%s' % [host, port, db]
+    end
+    
+    private
+    
+    # Based on / stolen from: https://github.com/chneukirchen/rack/blob/master/lib/rack/utils.rb
+    # which was based on / stolen from Mongrel
+    def parse_query(qs, d = '&;')
+      params = {}
+      (qs || '').split(/[#{d}] */n).each do |p|
+        k, v = p.split('=', 2).map { |str| str } # NOTE: uri_unescape
+        k = k.to_sym
+        if cur = params[k]
+          if cur.class == Array
+            params[k] << v
+          else
+            params[k] = [cur, v]
+          end
+        else
+          params[k] = v
+        end
+      end
+      params
     end
     
   end
