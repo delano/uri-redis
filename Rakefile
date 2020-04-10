@@ -19,7 +19,6 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.version = "#{config[:MAJOR]}.#{config[:MINOR]}.#{config[:PATCH]}"
     gem.name = "uri-redis"
-    gem.rubyforge_project = gem.name
     gem.summary = "URI-Redis: support for parsing redis://host:port/dbindex/keyname"
     gem.description = gem.summary
     gem.email = "delano@solutious.com"
