@@ -90,7 +90,7 @@ module URI
     
   end
   
-  @@schemes['REDIS'] = Redis
+  register_scheme 'REDIS', Redis
 end
 
 
