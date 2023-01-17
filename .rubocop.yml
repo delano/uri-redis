@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.7.0
+  TargetRubyVersion: 2.7.5
 
 Gemspec/DeprecatedAttributeAssignment: # new in 1.30
   Enabled: true
