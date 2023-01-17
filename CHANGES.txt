@@ -1,5 +1,14 @@
 URI-Redis, CHANGES
 
+
+#### 1.0.0-RC1 (2023-01-16) ###########################
+
+* CHANGE: Moderized gem
+* ADDED: Only redis-4.1.0+ supported
+* FIXED: Support URI v0.11
+  * See: https://github.com/delano/redis-dump/issues/33
+
+
 #### 0.4.2 (2010-12-23) ###############################
 
 # CHANGE: URI#conf enforces symbols as keys
