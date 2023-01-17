@@ -6,47 +6,47 @@ module URI
     VERSION = '0.4' unless defined?(URI::Redis::VERSION)
     DEFAULT_PORT = 6379
     DEFAULT_DB = 0
-    
+
     def self.build(args)
       tmp = Util::make_components_hash(self, args)
       return super(tmp)
     end
-    
+
     def initialize(*arg)
       super(*arg)
     end
-    
+
     def request_uri
       r = path_query
     end
-    
+
     def key
       return if self.path.nil?
       self.path ||= "/#{DEFAULT_DB}"
       (self.path.split('/')[2..-1] || []).join('/')
     end
-    
+
     def key=(val)
       self.path = '/' << [db, val].join('/')
     end
-    
+
     def db
       self.path ||= "/#{DEFAULT_DB}"
       (self.path.split('/')[1] || DEFAULT_DB).to_i
     end
-    
+
     def db=(val)
       current_key = key
       self.path = "/#{val}"
       self.path << "/#{current_key}"
       self.path
     end
-    
-    # Returns a hash suitable for sending to Redis.new. 
+
+    # Returns a hash suitable for sending to Redis.new.
     # The hash is generated from the host, port, db and
     # password from the URI as well as any query vars.
-    # 
-    # e.g. 
+    #
+    # e.g.
     #
     #      uri = URI.parse "redis://127.0.0.1/6/?timeout=5"
     #      uri.conf
@@ -61,13 +61,13 @@ module URI
       hsh[:password] = password if password
       hsh
     end
-    
+
     def serverid
       'redis://%s:%s/%s' % [host, port, db]
     end
-    
+
     private
-    
+
     # Based on / stolen from: https://github.com/chneukirchen/rack/blob/master/lib/rack/utils.rb
     # which was based on / stolen from Mongrel
     def parse_query(qs, d = '&;')
@@ -87,9 +87,9 @@ module URI
       end
       params
     end
-    
+
   end
-  
+
   register_scheme 'REDIS', Redis
 end
 
