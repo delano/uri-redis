@@ -1,15 +1,15 @@
-require 'uri'
-require 'redis'
+require "uri"
+require "redis"
 
 module URI
   class Redis < URI::Generic
-    VERSION = '0.4' unless defined?(URI::Redis::VERSION)
+    VERSION = "0.4" unless defined?(URI::Redis::VERSION)
     DEFAULT_PORT = 6379
     DEFAULT_DB = 0
 
     def self.build(args)
-      tmp = Util::make_components_hash(self, args)
-      return super(tmp)
+      tmp = Util.make_components_hash(self, args)
+      super(tmp)
     end
 
     def initialize(*arg)
@@ -21,18 +21,19 @@ module URI
     end
 
     def key
-      return if self.path.nil?
+      return if path.nil?
+
       self.path ||= "/#{DEFAULT_DB}"
-      (self.path.split('/')[2..-1] || []).join('/')
+      (self.path.split("/")[2..-1] || []).join("/")
     end
 
     def key=(val)
-      self.path = '/' << [db, val].join('/')
+      self.path = "/" << [db, val].join("/")
     end
 
     def db
       self.path ||= "/#{DEFAULT_DB}"
-      (self.path.split('/')[1] || DEFAULT_DB).to_i
+      (self.path.split("/")[1] || DEFAULT_DB).to_i
     end
 
     def db=(val)
@@ -54,29 +55,29 @@ module URI
     #
     def conf
       hsh = {
-        :host => host,
-        :port => port,
-        :db   => db
+        host: host,
+        port: port,
+        db: db
       }.merge parse_query(query)
       hsh[:password] = password if password
       hsh
     end
 
     def serverid
-      'redis://%s:%s/%s' % [host, port, db]
+      format("redis://%s:%s/%s", host, port, db)
     end
 
     private
 
     # Based on / stolen from: https://github.com/chneukirchen/rack/blob/master/lib/rack/utils.rb
     # which was based on / stolen from Mongrel
-    def parse_query(qs, d = '&;')
+    def parse_query(qs, d = "&;")
       params = {}
-      (qs || '').split(/[#{d}] */n).each do |p|
-        k, v = p.split('=', 2).map { |str| str } # NOTE: uri_unescape
+      (qs || "").split(/[#{d}] */n).each do |p|
+        k, v = p.split("=", 2).map { |str| str } # NOTE: uri_unescape
         k = k.to_sym
-        if cur = params[k]
-          if cur.class == Array
+        if (cur = params[k])
+          if cur.instance_of?(Array)
             params[k] << v
           else
             params[k] = [cur, v]
@@ -87,25 +88,23 @@ module URI
       end
       params
     end
-
   end
 
-  register_scheme 'REDIS', Redis
+  register_scheme "REDIS", Redis
 end
 
-
 class Redis
-  def self.uri(conf={})
-    URI.parse 'redis://%s:%s/%s' % [conf[:host], conf[:port], conf[:db]]
+  def self.uri(conf = {})
+    URI.parse format("redis://%s:%s/%s", conf[:host], conf[:port], conf[:db])
   end
   if defined?(Redis::VERSION) && Redis::VERSION >= "2.0.0"
     def uri
-      URI.parse 'redis://%s:%s/%s' % [@client.host, @client.port, @client.db]
+      URI.parse format("redis://%s:%s/%s", @client.host, @client.port, @client.db)
     end
   else
     class Client
       def uri
-        URI.parse 'redis://%s:%s/%s' % [@host, @port, @db]
+        URI.parse format("redis://%s:%s/%s", @host, @port, @db)
       end
     end
   end

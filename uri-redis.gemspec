@@ -30,6 +30,6 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.add_runtime_dependency "redis", '~> 4.1', '>= 4.1.0'
-  spec.add_development_dependency "tryouts", '~> 2.1', '>= 2.1.1'
+  spec.add_runtime_dependency "redis", "~> 4.1", ">= 4.1.0"
+  spec.add_development_dependency "tryouts", "~> 2.1", ">= 2.1.1"
 end
