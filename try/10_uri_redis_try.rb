@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "uri/redis"
 
 ## Default database is 0

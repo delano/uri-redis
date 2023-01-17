@@ -1,7 +1,22 @@
+# frozen_string_literal: true
+
 require "uri"
 require "redis"
 
+# URI::Redis - adds support for Redis URIs to core.
 module URI
+  # Redis URI
+  #
+  # This is a subclass of URI::Generic and supports the following URI formats:
+  #
+  #   redis://host:port/dbindex
+  #
+  # @example
+  #   uri = URI::Redis.build(host: "localhost", port: 6379, db: 2, key: "v1:arbitrary:key")
+  #   uri.to_s #=> "redis://localhost:6379/2/v1:arbitrary:key"
+  #
+  #   uri = URI::Redis.build(host: "localhost", port: 6379, db: 2)
+  #   uri.to_s #=> "redis://localhost:6379/2"
   class Redis < URI::Generic
     VERSION = "0.4" unless defined?(URI::Redis::VERSION)
     DEFAULT_PORT = 6379
@@ -12,19 +27,15 @@ module URI
       super(tmp)
     end
 
-    def initialize(*arg)
-      super(*arg)
-    end
-
     def request_uri
-      r = path_query
+      path_query
     end
 
     def key
       return if path.nil?
 
       self.path ||= "/#{DEFAULT_DB}"
-      (self.path.split("/")[2..-1] || []).join("/")
+      (self.path.split("/")[2..] || []).join("/")
     end
 
     def key=(val)
@@ -58,7 +69,7 @@ module URI
         host: host,
         port: port,
         db: db
-      }.merge parse_query(query)
+      }.merge(parse_query(query))
       hsh[:password] = password if password
       hsh
     end
@@ -69,11 +80,12 @@ module URI
 
     private
 
-    # Based on / stolen from: https://github.com/chneukirchen/rack/blob/master/lib/rack/utils.rb
-    # which was based on / stolen from Mongrel
-    def parse_query(qs, d = "&;")
+    # Based on: https://github.com/chneukirchen/rack/blob/master/lib/rack/utils.rb
+    # which was originally based on Mongrel
+    def parse_query(query, delim = nil)
+      delim ||= "&;"
       params = {}
-      (qs || "").split(/[#{d}] */n).each do |p|
+      (query || "").split(/[#{delim}] */n).each do |p|
         k, v = p.split("=", 2).map { |str| str } # NOTE: uri_unescape
         k = k.to_sym
         if (cur = params[k])
@@ -93,6 +105,7 @@ module URI
   register_scheme "REDIS", Redis
 end
 
+# Adds a URI method to Redis
 class Redis
   def self.uri(conf = {})
     URI.parse format("redis://%s:%s/%s", conf[:host], conf[:port], conf[:db])
@@ -102,6 +115,7 @@ class Redis
       URI.parse format("redis://%s:%s/%s", @client.host, @client.port, @client.db)
     end
   else
+    # Redis < 2.0.0
     class Client
       def uri
         URI.parse format("redis://%s:%s/%s", @host, @port, @db)
