@@ -1,5 +1,9 @@
 URI-Redis, CHANGES
 
+#### 1.0.0-RC2 (2023-01-16) ###########################
+
+* FIXED: Harmonized ruby versions across gemspec, code, and github action.
+
 
 #### 1.0.0-RC1 (2023-01-16) ###########################
 
