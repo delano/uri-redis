@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Uri
+module URI
   module Redis
-    VERSION = "0.1.0"
+    VERSION = "1.0.0-RC1"
   end
 end
