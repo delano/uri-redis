@@ -66,14 +66,16 @@ module URI
       hsh = {
         host: host,
         port: port,
-        db: db
+        db: db,
+        ssl: scheme == 'rediss'
       }.merge(parse_query(query))
       hsh[:password] = password if password
+      hsh[:timeout] = hsh[:timeout].to_i if hsh.key?(:timeout)
       hsh
     end
 
     def serverid
-      format("redis://%s:%s/%s", host, port, db)
+      format('%s://%s:%s/%s', scheme, host, port, db)
     end
 
     private
@@ -102,26 +104,20 @@ module URI
 
   if URI.respond_to?(:register_scheme)
     URI.register_scheme "REDIS", Redis
+    URI.register_scheme "REDISS", Redis
   else
     @@schemes['REDIS'] = Redis
+    @@schemes['REDISS'] = Redis
   end
 end
 
 # Adds a URI method to Redis
 class Redis
   def self.uri(conf = {})
-    URI.parse format("redis://%s:%s/%s", conf[:host], conf[:port], conf[:db])
+    URI.parse format("%s://%s:%s/%s", conf[:ssl] ? 'rediss' : 'redis', conf[:host], conf[:port], conf[:db])
   end
-  if defined?(Redis::VERSION) && Redis::VERSION >= "2.0.0"
-    def uri
-      URI.parse format("redis://%s:%s/%s", @client.host, @client.port, @client.db)
-    end
-  else
-    # Redis < 2.0.0
-    class Client
-      def uri
-        URI.parse format("redis://%s:%s/%s", @host, @port, @db)
-      end
-    end
+
+  def uri
+    URI.parse @client.id
   end
 end
