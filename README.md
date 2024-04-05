@@ -7,7 +7,8 @@ e.g.
     redis://host:port/dbindex
 
 ## Usage
-**
+
+```ruby
     require 'uri/redis'
 
     conf = URI.parse 'redis://localhost:4380/2'
@@ -16,7 +17,9 @@ e.g.
     conf.db                   # => 2
     conf.to_s                 # => redis://localhost:4380/2
     conf
-**
+```
+
+
 ## Installation
 
 Get it in one of the following ways:
