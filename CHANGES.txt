@@ -1,5 +1,11 @@
 URI-Redis, CHANGES
 
+#### 1.1.0 (2024-04-04) ###############################
+
+* Fix for frozen strings issue.
+* Allow fow updated redis, tryouts releases. 
+
+
 #### 1.0.0 (2023-01-17) ###############################
 
 * CHANGE: Just a version bump to 1.0 for a full

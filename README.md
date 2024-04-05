@@ -1,4 +1,4 @@
-# URI-Redis v1.0 (pre-release)
+# URI-Redis v1.1.0 (2024-04-04)
 
 Creates a URI object for Redis URLs.
 
@@ -28,11 +28,6 @@ Get it in one of the following ways:
 ## About
 
 * [Github](https://github.com/delano/uri-redis)
-
-
-## Credits
-
-* delano (https://delanotes.com/)
 
 
 ## License
