@@ -18,7 +18,6 @@ module URI
   #   uri = URI::Redis.build(host: "localhost", port: 6379, db: 2)
   #   uri.to_s #=> "redis://localhost:6379/2"
   class Redis < URI::Generic
-    VERSION = "0.4" unless defined?(URI::Redis::VERSION)
     DEFAULT_PORT = 6379
     DEFAULT_DB = 0
 
