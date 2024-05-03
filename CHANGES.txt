@@ -1,9 +1,15 @@
 URI-Redis, CHANGES
 
+#### 1.1.1 (2024-04-05) ###############################
+
+* Remove minimum ruby version from Gemfile
+* Includes corrected Gemfile.lock file.
+
+
 #### 1.1.0 (2024-04-04) ###############################
 
 * Fix for frozen strings issue.
-* Allow fow updated redis, tryouts releases. 
+* Allow fow updated redis, tryouts releases.
 
 
 #### 1.0.0 (2023-01-17) ###############################
