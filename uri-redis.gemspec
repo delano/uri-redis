@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name = "uri-redis"
   spec.version = URI::Redis::VERSION
   spec.authors = ["delano"]
-  spec.email = ["delano@solutious.com"]
+  spec.email = ["gems@solutious.com"]
 
   spec.summary = "URI-Redis: support for parsing Redis URIs"
   spec.description = "URI-Redis: support for parsing Redis URIs like redis://host:port/dbindex"
@@ -31,6 +31,6 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
   spec.add_runtime_dependency "redis", ">= 4.8", "< 7"
-  spec.add_development_dependency "tryouts"
+  spec.add_development_dependency "tryouts", "2.2.0"
   spec.metadata["rubygems_mfa_required"] = "true"
 end
