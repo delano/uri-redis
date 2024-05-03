@@ -44,5 +44,8 @@ jobs:
         # message for this change.
         bundler-cache: false
 
+    - name: Re-run bundle install
+      run: bundle install
+
     - name: Run the default task
       run: bundle exec rake
