@@ -1,5 +1,4 @@
-
-require_relative "../lib/uri/redis"
+require "uri/redis"
 
 ## Default database is 0
 uri = URI.parse "redis://localhost"

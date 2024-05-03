@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.7.5
+  TargetRubyVersion: 2.7
 
 Gemspec/DeprecatedAttributeAssignment: # new in 1.30
   Enabled: true
@@ -171,6 +171,8 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Enabled: false
   EnforcedStyle: double_quotes
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 Layout/LineLength:
   Max: 120
