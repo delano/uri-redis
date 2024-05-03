@@ -1,9 +1,3 @@
-PATH
-  remote: .
-  specs:
-    uri-redis (1.1.1)
-      redis (>= 4.8, < 7)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -53,9 +47,9 @@ PLATFORMS
 
 DEPENDENCIES
   rake (~> 13.0)
+  redis (>= 4.8, < 7)
   rubocop (~> 1.21)
-  tryouts
-  uri-redis!
+  tryouts (~> 2.2.0)
 
 BUNDLED WITH
    2.5.9
