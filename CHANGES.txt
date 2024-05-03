@@ -1,10 +1,18 @@
 URI-Redis, CHANGES
 
+#### 1.1.2 (2024-05-02) ###############################
+
+* Same functionality as the now yanked 1.1.1 with
+  updated metadata, including:
+    * Remove minimum ruby version from Gemfile
+    * Corrected Gemfile.lock file with latest deps
+    * Improved Github Action workflow.
+    * Fixes for Rubocop complaints.
+
+
 #### 1.1.1 (2024-04-05) ###############################
 
-* Remove minimum ruby version from Gemfile
-* Includes corrected Gemfile.lock file.
-
+** Yanked May 2nd **
 
 #### 1.1.0 (2024-04-04) ###############################
 
