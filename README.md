@@ -1,4 +1,4 @@
-# URI-Redis v1.0 (pre-release)
+# URI-Redis v1.1.0 (2024-04-04)
 
 Creates a URI object for Redis URLs.
 
@@ -7,7 +7,8 @@ e.g.
     redis://host:port/dbindex
 
 ## Usage
-**
+
+```ruby
     require 'uri/redis'
 
     conf = URI.parse 'redis://localhost:4380/2'
@@ -16,7 +17,9 @@ e.g.
     conf.db                   # => 2
     conf.to_s                 # => redis://localhost:4380/2
     conf
-**
+```
+
+
 ## Installation
 
 Get it in one of the following ways:
@@ -28,11 +31,6 @@ Get it in one of the following ways:
 ## About
 
 * [Github](https://github.com/delano/uri-redis)
-
-
-## Credits
-
-* delano (https://delanotes.com/)
 
 
 ## License

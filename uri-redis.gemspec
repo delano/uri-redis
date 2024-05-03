@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "URI-Redis: support for parsing Redis URIs like redis://host:port/dbindex"
   spec.homepage = "https://github.com/delano/uri-redis"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.7.5"
+  spec.required_ruby_version = ">= 2.6.8"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.add_runtime_dependency "redis", "~> 4.1", ">= 4.1.0"
-  spec.add_development_dependency "tryouts", "~> 2.1", ">= 2.1.1"
+  spec.add_runtime_dependency "redis", ">= 4.8", "< 7"
+  spec.add_development_dependency "tryouts"
   spec.metadata["rubygems_mfa_required"] = "true"
 end
