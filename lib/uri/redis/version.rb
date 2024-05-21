@@ -2,6 +2,7 @@
 
 module URI
   module Redis
-    VERSION = "1.1.2"
+    VERSION = "1.2.0"
+    SUMMARY = "A Ruby library for parsing, building and normalizing redis URLs"
   end
 end
