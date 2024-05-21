@@ -1,4 +1,4 @@
-# URI-Redis v1.1.2 (2024-05-02)
+# URI-Redis v1.2 (2024-05-20)
 
 Creates a URI object for Redis URLs.
 
