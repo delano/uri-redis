@@ -1,4 +1,5 @@
 require "uri"
+require "uri/generic"
 require "redis"
 
 # URI::Redis - adds support for Redis URIs to core.
@@ -99,7 +100,11 @@ module URI
     end
   end
 
-  register_scheme "REDIS", Redis
+  if URI.respond_to?(:register_scheme)
+    URI.register_scheme "REDIS", Redis
+  else
+    @@schemes['REDIS'] = Redis
+  end
 end
 
 # Adds a URI method to Redis
