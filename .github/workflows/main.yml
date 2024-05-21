@@ -53,3 +53,6 @@ jobs:
 
     - name: Run the default task
       run: bundle exec rake
+
+    - name: Run the tryouts
+      run: bundle exec try -v
