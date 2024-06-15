@@ -26,3 +26,8 @@ uri = URI.parse "redis://localhost/2/v1:arbitrary:key"
 uri.key = "v2:arbitrary:key"
 uri.to_s
 #=> 'redis://localhost/2/v2:arbitrary:key'
+
+## Support rediss
+uri = URI.parse "rediss://localhost"
+[uri.scheme, uri.conf]
+#=> ["rediss", {:host=>"localhost", :port=>6379, :db=>0, :ssl=>true}]
