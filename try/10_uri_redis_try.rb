@@ -10,6 +10,11 @@ uri = URI.parse "redis://localhost/2"
 [uri.db, uri.host, uri.port]
 #=> [2, 'localhost', 6379]
 
+## Parsed URI can be accessed via conf hash
+uri = URI.parse "redis://localhost:16739/2"
+[uri.scheme, uri.conf]
+#=> ['redis', {:host=>"localhost", :port=>16739, :db=>2, :ssl=>false}]
+
 ## Can parse a key name
 uri = URI.parse "redis://localhost/2/v1:arbitrary:key"
 [uri.key, uri.db, uri.host, uri.port]
