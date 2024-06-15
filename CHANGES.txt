@@ -1,5 +1,9 @@
 URI-Redis, CHANGES
 
+#### 1.3.0 (2024-06-15) ###############################
+
+* Add support for rediss scheme (thanks @sebastien-coavoux).
+
 #### 1.2.0 (2024-05-20) ###############################
 
 * Fix for Ruby <= 3.0 `register_scheme` error.

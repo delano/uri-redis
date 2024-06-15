@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["gems@solutious.com"]
 
   spec.summary = "URI-Redis: support for parsing Redis URIs"
-  spec.description = "URI-Redis: support for parsing Redis URIs like redis://host:port/dbindex"
+  spec.description = "URI-Redis: support for parsing Redis URIs like redis://host:port/dbindex/key"
   spec.homepage = "https://github.com/delano/uri-redis"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.7.5"
